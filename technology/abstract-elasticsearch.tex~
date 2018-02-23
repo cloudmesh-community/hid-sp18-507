@@ -1,0 +1,9 @@
+\section{Elasticsearch}
+
+The central engine to the Elastic product line, Elasticsearch is a distributed,
+RESTful search engine designed to grow with growing data. Elasticsearch is
+capable of searching and storing multiple data types, including numeric data,
+text, geo, and varying levels of structured data. In addition to the ability to
+search in real-time, Elasticsearch is capable of analysing queried
+results. Elasticsearch's use is compatible with multiple languages such as Curl,
+Java, Python, C#, PHP, Perl, JavaScript, and more.
