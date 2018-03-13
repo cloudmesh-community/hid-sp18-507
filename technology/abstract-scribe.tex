@@ -1,5 +1,6 @@
 \section{Scribe}
 
+<<<<<<< HEAD
 Scribe is a server design, originally developed and maintained by
 Facebook in 2008, that serves as an aggregation service for streaming
 log data. The Scribe server is deployed within each node of a network
@@ -18,3 +19,13 @@ networks such as connection breaks, server downtime, and
 scalability~\cite{hid-sp18-507-ScribeNote}. The logging-functionality
 of Scribe is now maintained and improved upon through the open source
 community. Scribe is available via the Apache License v.2.
+=======
+Scribe is a server, originally developed and maintained by Facebook in 2008,
+that serves as an aggregator for streaming log data. The Scribe server is
+deployed within each node of a network and sends the aggregated log data to a
+central server for analysis. The data is interpreted by the Scribe servers via a
+two-string input by a client: the category or direction, and the message
+itself. Scribe has been deployed on thousands of servers on a single network and
+is robust to network errors and failures~\cite{FBScribe}. Scribe is available
+via the Apache License v.2.\footnote{Please fix labels.}
+>>>>>>> d5aeafc0725238972b4025b73318fe32a6ef8639
