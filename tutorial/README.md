@@ -36,13 +36,16 @@ Openchain offers both a container-based setup, using a Docker image, as well as 
 
 ## Pre-set-up
 
-1. Update package index: `sudo apt-get update`
-2. Install Docker  
+First, update package index: `sudo apt-get update`  
+Second, install Docker  
+
  - Docker installation steps are available in the Docker Section of the handbook as well as the [Docker Installation Documentation](https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce-1) published by Docker.
-3. (Optional) Set up virtual environment  
+
+Optional: Set up virtual environment  
+
  - The user has the option of setting up a virtual environment prior to setting up the Openchain server. We recommend using `pyenv` or `virtualenv` to set up a specific python environment. Information on installing and using a virtual environment is available on [Pyenv's Git Page](https://github.com/pyenv/pyenv "pyenv") and [Virtualenv's documentation site](https://virtualenv.pypa.io/en/stable/ "Virtualenv").
 
-4. Install docker-compose for Python: `pip install docker-compose`
+Finally, install docker-compose for Python: `pip install docker-compose`
 
 ## Installing, Setting Up, and Configuring an Openchain Server
 
@@ -89,45 +92,48 @@ The following steps through the end of the tutorial will utilize Openchain's web
 
 ### Account creation and administration rights
 
-1. Go to [Openchain's Client Site](http://nossl.wallet.openchain.org) to create a new wallet. Note, this is the 'nossl' client because the server has been deployed on a local machine for purposes of this tutorial. Openchain offers a different secured wallet for https-based urls. 
-2. In the 'Endpoint URL' field, enter `http://0.0.0.0:8080/` as this is the default address and port which the server should be running.
-3. Click 'Create new wallet'. This generates a random string used to create the account.
+Go to [Openchain's Client Site](http://nossl.wallet.openchain.org) to create a new wallet. Note, this is the 'nossl' client because the server has been deployed on a local machine for purposes of this tutorial. Openchain offers a different secured wallet for https-based urls.  
+
+Then, in the 'Endpoint URL' field, enter `http://0.0.0.0:8080/` as this is the default address and port which the server should be running.  
+Next, click 'Create new wallet'. This generates a random string used to create the account.
 
  - **IMPORTANT**  
 You will need this passphrase each time you log in as this is your key to getting access to the server. Keep this phrase in a secure place.
 
-4. Copy the passphrase created and click the 'Back' button. Paste the passphrase in the field and click 'Sign In'.
+Copy the passphrase created and click the 'Back' button. Paste the passphrase in the field and click 'Sign In'.
 
  - Congratulations, the server's first account has been created. Onto setting up this account as the admin account:
 	
-5. Once you are logged in, the page you see will provide a unique path, or address, under 'Receive Funds'. `Ex: XxWCrT1TBUwFtphLmV1qkMwnc9ojQWwtCS`. Copy that address.
-6. Open the config.json document again and edit the `admin_addresses` line within the `validator_mode` section so that the path you copied is pasted as a string (with quotes).
+Once you are logged in, the page you see will provide a unique path, or address, under 'Receive Funds'. `Ex: XxWCrT1TBUwFtphLmV1qkMwnc9ojQWwtCS`. Copy that address.  
+
+Open the config.json document again and edit the `admin_addresses` line within the `validator_mode` section so that the path you copied is pasted as a string (with quotes).
 
         Example:
         "admin_addresses": ["XxWCrT1TBUwFtphLmV1qkMwnc9ojQWwtCS"
         ],
 
-7. Restart the server so that the changes to the config.json file are active.
+Restart the server so that the changes to the config.json file are active.
 
  - Before continuing, you want to add some information to your server so that the clients, or Openchain Wallets, can interact with the service.
 
-8. Returning to the wallet client website. Assuming you are still logged in, click the 'Advanced' tab at the top of the page.
-9. Click 'Edit Ledger Info'. Here you can add specific information about the ledger that is visible when users connect. For purposes of the tutorial, we can name it `Tutorial Ledger`. Feel feel free to edit the other information as well.
+Returning to the wallet client website. Assuming you are still logged in, click the 'Advanced' tab at the top of the page.  
+next, click 'Edit Ledger Info'. Here you can add specific information about the ledger that is visible when users connect. For purposes of the tutorial, we can name it `Tutorial Ledger`. Feel feel free to edit the other information as well.
 
  - Next, we will issue our first asset. Here is where an enterprise can set up the description and quantity of the asset they intend to manage.
 
-10. Click the 'Assets' tab at the top of the page and select 'Tutorial Ledger' from the drop-down. Note, you may have to re-log-in to the server or restart the server so that the new ledger information is pulled into the web client.
-11. In the 'Asset Path' field, you'll want to enter the specific path to your address, as if you are issuing an asset for the first time. The path should look something like this:
+Click the 'Assets' tab at the top of the page and select 'Tutorial Ledger' from the drop-down. Note, you may have to re-log-in to the server or restart the server so that the new ledger information is pulled into the web client.  
+
+In the 'Asset Path' field, you'll want to enter the specific path to your address, as if you are issuing an asset for the first time. The path should look something like this:
 
         /asset/p2pkh/XxWCrT1TBUwFtphLmV1qkMwnc9ojQWwtCS/
 
-12. Once you click 'Confirm', you will need to add information to the transaction. For purposes of the tutorial, we will issue a fake 'IU Coin'. Enter the following into the three fields, respectively:
+Once you click 'Confirm', you will need to add information to the transaction. For purposes of the tutorial, we will issue a fake 'IU Coin'. Enter the following into the three fields, respectively:
 
         Asset Name:	IU Coin
         Asset Image URL: https://www.iu.edu/images/iu-250x250.png  
         Ticker: IUC  
 
-13. Finally, scrolling down, click 'Issue Asset', and Enter a quantity that you intend to create. Let's go with 524. Now click 'Issue'.
+Finally, scrolling down, click 'Issue Asset', and Enter a quantity that you intend to create. Let's go with 524. Now click 'Issue'.
 
 The transaction should go through. If it fails because you don't have admin rights, verify that you have added your specific path to the config file and have restarted the server to changes are in effect. You can view the asset and transaction information, which is natively in JSON format (and can be queried as such). 
 
