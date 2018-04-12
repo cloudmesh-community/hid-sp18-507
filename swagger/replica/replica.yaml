@@ -1,0 +1,48 @@
+---
+swagger: "2.0"
+info:
+  title: "Replica"
+  version: "1.0.0"
+  description: "Provides information for replicating files"
+  contact:
+    name: "Stephen Giuliani"
+host: "localhost:8080"
+consumes:
+  - application/json
+produces:
+  - application/json
+
+paths:
+  /original:
+    get:
+      description: "Provides file data for the original file."
+      operationId: "get_original"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "Original file data."
+        400:
+          $ref: '#/responses/400Error'
+  /replica:
+    get:
+      description: "Provides file data for the replicated file."
+      operationId: "get_replica"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "Replica file data."
+        400:
+          $ref: '#/responses/400Error'
+
+
+responses:
+  400Error:
+    description: "Invalid request"
+    schema:
+      type: object 
+      properties:
+        message:
+          type: string
+          
