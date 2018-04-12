@@ -7,9 +7,10 @@ app = Flask(__name__)
 
 app.config['MONGO_DBNAME'] = 'twitter'
 #app.config['MONGO_URI'] = 'mongodb://localhost:27017/'
-app.config['MONGO_URI'] = 'mongodb+srv://giuliani-test:<PASSWORD>@cluster524-vl3t1.mongodb.net/twitter'
+app.config['MONGO_URI'] = 'mongodb+srv://hidsp18507:hidsp18507!@cluster524-vl3t1.mongodb.net/twitter'
 
 mongo = PyMongo(app)
+
 
 @app.route('/tweets/data', methods = ['GET'])
 def get_data():
@@ -27,6 +28,7 @@ def get_users():
     for q in tweet.find():
         output[q['data']['user']['screen_name']] = q['data']['user']
     return jsonify(output)
+
 
 @app.route('/users/names', methods = ['GET'])
 def get_users_names():
@@ -56,8 +58,12 @@ def get_user_history():
         account_age = (datetime.datetime.now()-account_created).days
         total_posts = q['data']['user']['statuses_count']
         total_faves = q['data']['user']['favourites_count']
-        postperday = float(total_posts/account_age)
-        favsperday = float(total_faves/account_age)
+        if account_age < 1:
+            postperday = total_posts
+            favsperday = total_faves
+        else:
+            postperday = float((total_posts)/(account_age))
+            favsperday = float((total_faves)/(account_age))
 
         output[q['data']['user']['screen_name']] = {'accounts_age' : account_age, 'daily_posts' : postperday, 'daily_faves' : favsperday}
     return jsonify(output)
@@ -70,7 +76,10 @@ def get_user_ratios():
     for q in tweet.find():
         followerCT = q['data']['user']['followers_count']
         friendCT = q['data']['user']['friends_count']
-        ffratio = float((friendCT+0.00000000000001)/(followerCT+0.00000000000001))
+        if followerCT == 0 or friendCT == 0:
+            ffratio = 0
+        else:
+            ffratio = float((friendCT)/(followerCT))
 
         output[q['data']['user']['screen_name']] = {'friends_per_follows' : ffratio}
     return jsonify(output)
